@@ -9,14 +9,19 @@ import { composeWithDevTools } from "redux-devtools-extension";
 //Saga
 import createSagaMiddleware from "redux-saga";
 import { fork } from "redux-saga/effects";
-import { fetchCharactersStart } from "./features/fetch-characters/saga";
+import {
+  fetchCharactersStart,
+  fetchCharactersByPageStart
+} from "./features/fetch-characters/saga";
 
 //Reducers
 import { reducer as fetchCharacters } from "./features/fetch-characters/reducer";
+import { fetchCharactersByPageReducer as fetchCharactersByPage } from "./features/fetch-characters/reducer";
 
 //Initialization
 const rootReducer = combineReducers({
-  fetchCharacters
+  fetchCharacters,
+  fetchCharactersByPage
 });
 
 const sagaMiddleware = createSagaMiddleware();
@@ -28,6 +33,7 @@ const store = createStore(
 
 function* rootSaga() {
   yield fork(fetchCharactersStart);
+  yield fork(fetchCharactersByPageStart);
 }
 sagaMiddleware.run(rootSaga);
 
