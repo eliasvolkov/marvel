@@ -1,20 +1,36 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { fetchCharactersRequest } from "../actions";
+import {
+  fetchCharactersRequest,
+  fetchCharactersByPageRequest
+} from "../actions";
 import { IResults } from "../../../shared/models/response";
 import { Character } from "./Character";
-import { IState } from "../model";
+import { Pagination } from "./Pagination";
 
 export interface ICharacterContainerProps {
   fetchCharactersRequest: () => void;
+  fetchCharactersByPageRequest: (page: number) => void;
   characters: IResults[];
+  totalCharacters: IResults[];
 }
 
 class CharacterContainer extends React.Component<any> {
+  state = {
+    currentPage: 1
+  };
   componentDidMount() {
+    this.props.fetchCharactersByPageRequest(1);
     this.props.fetchCharactersRequest();
   }
+
+  nextPage = (page: number) => {
+    this.props.fetchCharactersByPageRequest(page);
+    this.setState({ currentPage: page });
+  };
+
   public render() {
+    const numberOfPages = Math.floor(this.props.totalCharacters.length / 10);
     return (
       <div>
         <div className="row ">
@@ -28,6 +44,11 @@ class CharacterContainer extends React.Component<any> {
             );
           })}
         </div>
+        <Pagination
+          pages={numberOfPages}
+          currentPage={this.state.currentPage}
+          nextPage={this.nextPage}
+        />
       </div>
     );
   }
@@ -35,11 +56,12 @@ class CharacterContainer extends React.Component<any> {
 
 const mapState2Props = (state: any) => {
   return {
-    characters: state.fetchCharacters.data
+    totalCharacters: state.fetchCharacters.data,
+    characters: state.fetchCharactersByPage.data
   };
 };
 
 export default connect(
   mapState2Props,
-  { fetchCharactersRequest }
+  { fetchCharactersRequest, fetchCharactersByPageRequest }
 )(CharacterContainer);
