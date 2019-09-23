@@ -1,4 +1,4 @@
-export const fetchCharacters = async () => {
+export const fetchCharactersApi = async () => {
   const apiKey: string = "4c9674f31e041ad25ef153635461556e";
   const hash: string = "e9af80b0c13e7a268a152c6352dac9b8";
 
