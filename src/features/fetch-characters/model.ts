@@ -2,6 +2,6 @@ import { IResults } from "./../../shared/models/response";
 
 export interface IState {
   loading: boolean;
-  data: any;
+  data: Array<IResults>;
   error: string;
 }
