@@ -6,7 +6,6 @@ import CharacterContainer from "./features/fetch-characters/components/Character
 const App: React.FC = () => {
   return (
     <Layout>
-      <h1>Loading...</h1>
       <CharacterContainer />
     </Layout>
   );
