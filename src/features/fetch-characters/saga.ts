@@ -3,7 +3,11 @@ import {
   fetchCharactersApi,
   fetchCharactersApiByPage
 } from "./../../shared/api/index";
-import { fetchCharacters, fetchCharactersByPage } from "./actions";
+import {
+  fetchCharacters,
+  fetchCharactersByPage,
+  FetchCharactersByPageRequest
+} from "./actions";
 import { call, takeEvery, put } from "redux-saga/effects";
 import {
   FETCH_CHARACTERS_REQUEST,
@@ -21,7 +25,9 @@ export function* fetchCharactersStart() {
 
 //Fetching By Page
 
-export function* fetchCharactersByPageAsync(action: any) {
+export function* fetchCharactersByPageAsync(
+  action: FetchCharactersByPageRequest
+) {
   console.log(action.payload);
   const characters: any = yield call(fetchCharactersApiByPage, action.payload);
   yield put(fetchCharactersByPage(characters));
