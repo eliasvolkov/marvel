@@ -14,8 +14,14 @@ export interface ICharacterContainerProps {
   characters: IResults[];
   totalCharacters: IResults[];
 }
+export interface ICharacterContainerState {
+  currentPage: number;
+}
 
-class CharacterContainer extends React.Component<any> {
+class CharacterContainer extends React.Component<
+  ICharacterContainerProps,
+  ICharacterContainerState
+> {
   state = {
     currentPage: 1
   };
