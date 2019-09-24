@@ -19,7 +19,7 @@ export function* fetchCharactersAsync(): Generator {
   yield put(fetchCharacters(characters));
 }
 
-export function* fetchCharactersStart() {
+export function* fetchCharactersStart(): Generator {
   yield takeEvery(FETCH_CHARACTERS_REQUEST, fetchCharactersAsync);
 }
 
@@ -27,12 +27,12 @@ export function* fetchCharactersStart() {
 
 export function* fetchCharactersByPageAsync(
   action: FetchCharactersByPageRequest
-) {
+): Generator {
   console.log(action.payload);
   const characters: any = yield call(fetchCharactersApiByPage, action.payload);
   yield put(fetchCharactersByPage(characters));
 }
 
-export function* fetchCharactersByPageStart() {
+export function* fetchCharactersByPageStart(): Generator {
   yield takeEvery(FETCH_CHARACTERS_BY_PAGE_REQUEST, fetchCharactersByPageAsync);
 }
